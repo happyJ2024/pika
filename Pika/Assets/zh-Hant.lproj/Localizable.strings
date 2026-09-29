@@ -572,3 +572,8 @@
 
 /* Window Settings */
 "preferences.window.title" = "視窗設置";
+
+// Screen color sampling
+"preferences.pick.zoomedCursor" = "取色時使用放大游標";
+"picker.capture.error.title" = "無法取得螢幕顏色";
+"picker.capture.error.help" = "請在系統設定 → 隱私權與安全性 → 螢幕錄製中允許 Pika 存取螢幕，然後重試。也可以啟用放大游標，使用系統取色器。";

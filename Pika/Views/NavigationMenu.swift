@@ -7,6 +7,7 @@ struct NavigationMenu: View {
     @Default(.historyDrawerVisible) var historyDrawerVisible
     @Default(.showColorPreview) var showColorPreview
     @Default(.showCompliance) var showCompliance
+    @Default(.useZoomedCursor) var useZoomedCursor
 
     func isFormatDisabled(_ format: ColorFormat) -> Bool {
         if copyFormat == .swiftUI {
@@ -28,6 +29,19 @@ struct NavigationMenu: View {
             .fixedSize()
             .frame(width: 100.0)
             .padding(.trailing, 4.0)
+
+            Button(action: {
+                useZoomedCursor.toggle()
+            }, label: {
+                IconImage(name: useZoomedCursor ? "plus.magnifyingglass" : "scope")
+            })
+            .buttonStyle(PlainButtonStyle())
+            .padding(.horizontal, 6.0)
+            .foregroundStyle(useZoomedCursor ? Color.accentColor : Color.primary)
+            .help(PikaText.textUseZoomedCursor)
+            .accessibilityLabel(PikaText.textUseZoomedCursor)
+            .accessibilityValue(Text(useZoomedCursor ? "1" : "0"))
+            .accessibilityAddTraits(useZoomedCursor ? [.isSelected] : [])
 
             Button(action: {
                 NSApp.sendAction(#selector(AppDelegate.triggerToggleColorPreview), to: nil, from: nil)

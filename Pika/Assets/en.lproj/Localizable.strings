@@ -578,3 +578,8 @@
 
 /* Restore system appearance */
 "help.url.appearance.system" = "Restore system appearance";
+
+// Screen color sampling
+"preferences.pick.zoomedCursor" = "Use zoomed cursor when picking color";
+"picker.capture.error.title" = "Unable to pick a screen color";
+"picker.capture.error.help" = "Allow Pika to record your screen in System Settings → Privacy & Security → Screen Recording, then try again. You can also enable the zoomed cursor to use the system color picker.";

@@ -12,6 +12,7 @@ private struct GeneralAndSelectionSection: View {
         @Default(.betaUpdates) var betaUpdates
     #endif
     @Default(.hidePikaWhilePicking) var hidePikaWhilePicking
+    @Default(.useZoomedCursor) var useZoomedCursor
     @Default(.windowShadow) var windowShadow
     @Default(.pickContrastingColor) var pickContrastingColor
     @Default(.appMode) var appMode
@@ -75,6 +76,10 @@ private struct GeneralAndSelectionSection: View {
                 Text(PikaText.textSelectionTitle).font(.system(size: 16))
                 Toggle(isOn: $hidePikaWhilePicking) {
                     Text(PikaText.textPickHide)
+                }
+                Toggle(isOn: $useZoomedCursor) {
+                    Text(PikaText.textUseZoomedCursor)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 Toggle(isOn: $pickContrastingColor) {
                     Text(PikaText.textPickContrasting)

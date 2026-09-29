@@ -133,3 +133,34 @@ final class NSColorRGBTests: XCTestCase {
         XCTAssertEqual(nsColor, .black)
     }
 }
+
+// Screen sampling must preserve Retina pixel precision and flip the AppKit Y axis.
+extension NSColorRGBTests {
+    func test_unzoomedSampler_mapsRetinaPixelsAndScreenEdges() throws {
+        let bitmap = try XCTUnwrap(NSBitmapImageRep(
+            bitmapDataPlanes: nil, pixelsWide: 4, pixelsHigh: 4,
+            bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true,
+            isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0
+        ))
+        for y in 0 ..< 4 {
+            for x in 0 ..< 4 {
+                bitmap.setColor(NSColor(deviceRed: CGFloat(x) / 3, green: CGFloat(y) / 3,
+                                        blue: 0, alpha: 1), atX: x, y: y)
+            }
+        }
+        let size = NSSize(width: 2, height: 2)
+        for y in 0 ..< 4 {
+            for x in 0 ..< 4 {
+                let point = NSPoint(x: (CGFloat(x) + 0.5) / 2, y: 2 - (CGFloat(y) + 0.5) / 2)
+                XCTAssertEqual(UnzoomedColorSampler.color(at: point, size: size, bitmap: bitmap),
+                               bitmap.colorAt(x: x, y: y))
+            }
+        }
+        XCTAssertEqual(UnzoomedColorSampler.color(at: .zero, size: size, bitmap: bitmap),
+                       bitmap.colorAt(x: 0, y: 3))
+        XCTAssertNil(UnzoomedColorSampler.color(at: NSPoint(x: -0.1, y: 1), size: size, bitmap: bitmap))
+        XCTAssertNil(UnzoomedColorSampler.color(at: NSPoint(x: 2, y: 1), size: size, bitmap: bitmap))
+        XCTAssertNil(UnzoomedColorSampler.color(at: NSPoint(x: 1, y: 2), size: size, bitmap: bitmap))
+        XCTAssertNil(UnzoomedColorSampler.color(at: .zero, size: .zero, bitmap: bitmap))
+    }
+}

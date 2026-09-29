@@ -168,6 +168,10 @@ enum PikaText {
     )
     static let textSelectionTitle = NSLocalizedString("preferences.selection.title", comment: "Selection Settings")
     static let textPickHide = NSLocalizedString("preferences.pick.hide", comment: "Hide Pika while picking")
+    static let textUseZoomedCursor = NSLocalizedString(
+        "preferences.pick.zoomedCursor",
+        comment: "Use zoomed cursor when picking color"
+    )
     static let textPickContrasting = NSLocalizedString(
         "preferences.pick.contrasting",
         comment: "Pick a contrasting background color after the foreground"
